@@ -1,0 +1,652 @@
+paths:
+  /api/carts:
+    get:
+      summary: Get all carts
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CartsResponse"
+        "500":
+          description: Internal server error
+
+    post:
+      summary: Create a new cart
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmptyCart"
+        "500":
+          description: Internal server error
+
+  /api/carts/{cid}:
+    get:
+      summary: Get a cart's products by ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Cart ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CartProducts"
+        "404":
+          description: Cart not found
+        "500":
+          description: Internal server error
+
+    put:
+      summary: Update a cart by ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Cart ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/AddToCartRequestBody"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateProductResponse"
+        "400":
+          description: Missing request body
+        "500":
+          description: Internal server error
+
+    delete:
+      summary: Delete a cart's products
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Cart ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteCartProductsResponse"
+        "404":
+          description: Cart ID not found
+        "500":
+          description: Internal server error
+
+  /api/carts/{cid}/products/{pid}:
+    post:
+      summary: Add a product to a cart by ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Cart ID
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: Product ID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddCartProductsResponse"
+        "404":
+          description: Product/Cart not found in the DB
+        "500":
+          description: Internal server error
+
+    delete:
+      summary: Delete a product from a cart
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Cart ID
+          schema:
+            $type: string
+        - name: pid
+          in: path
+          required: true
+          description: Product ID
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Product deleted successfully from the cart
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/RemoveCartProductResponse"
+        "404":
+          description: Product/Cart not found
+        "500":
+          description: Internal server error
+
+    put:
+      summary: Update quantity of a product in a cart
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Cart ID
+          schema:
+            $type: string
+        - name: pid
+          in: path
+          required: true
+          description: Product ID
+          schema:
+            $type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/UpdateQuantityRequestBody"
+      responses:
+        "200":
+          description: Product quantity updated successfully in the cart
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/UpdateProdQuantityResponse"
+        "404":
+          description: Product/Cart not found
+        "500":
+          description: Internal server error
+
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Purchase the products in the cart
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID of the cart to purchase
+          schema:
+            $type: string
+      responses:
+        "200":
+          description: Cart products purchased successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/PurchaseProductsResponse"
+        "404":
+          description: Cart not found
+        "500":
+          description: Internal server error
+
+components:
+  schemas:
+    CartsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Response status
+        payload:
+          type: array
+          items:
+            $ref: "#/components/schemas/Cart"
+      example:
+        status: Success
+        payload:
+          - _id: "65480f5c222663540f177d47"
+            products:
+              - product:
+                  _id: "6547af64ff8692aed2348dfe"
+                  title: Product 4
+                  description: Short description 4
+                  price: 25
+                  thumbnail:
+                    - https://www.example.com/product4/image1.jpg
+                    - https://www.example.com/product4/image2.jpg
+                    - https://www.example.com/product4/image3.jpg
+                  code: P-004
+                  stock: 19
+                  category: Category A
+                  status: true
+                quantity: 1
+                _id: "65bfc4acd9560e643bc2b0e6"
+          - _id: "65480f5c222663540f177d48"
+            products: []
+          - _id: "657642a312f7de1fcd163b0b"
+            products: []
+    EmptyCart:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Response status
+        payload:
+          type: object
+          properties:
+            products:
+              type: array
+              description: Array of products
+            _id:
+              type: string
+              description: Cart ID
+      example:
+        status: Success
+        payload:
+          - _id: "65480f5c222663540f177d48"
+            products: []
+
+    CartProducts:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Response status
+        payload:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                $ref: "#/components/schemas/Product"
+              quantity:
+                type: integer
+              _id:
+                type: string
+      example:
+        status: Success
+        payload:
+          - product:
+              _id: "6547af64ff8692aed2348dfe"
+              title: Product 4
+              description: Short description 4
+              price: 25
+              thumbnail:
+                - https://www.example.com/product4/image1.jpg
+                - https://www.example.com/product4/image2.jpg
+                - https://www.example.com/product4/image3.jpg
+              code: P-004
+              stock: 19
+              category: Category A
+              status: true
+            quantity: 1
+            _id: "65bfc4acd9560e643bc2b0e6"
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Cart ID
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                $ref: "#/components/schemas/Product"
+              quantity:
+                type: integer
+              _id:
+                type: string
+            example:
+              product:
+                _id: "6547af64ff8692aed2348dfe"
+                title: Product 4
+                description: Short description 4
+                price: 25
+                thumbnail:
+                  - https://www.example.com/product4/image1.jpg
+                  - https://www.example.com/product4/image2.jpg
+                  - https://www.example.com/product4/image3.jpg
+                code: P-004
+                stock: 19
+                category: Category A
+                status: true
+              quantity: 1
+              _id: "65bfc4acd9560e643bc2b0e6"
+      example:
+        _id: "65480f5c222663540f177d47"
+        products:
+          - product:
+              _id: "6547af64ff8692aed2348dfe"
+              title: Product 4
+              description: Short description 4
+              price: 25
+              thumbnail:
+                - https://www.example.com/product4/image1.jpg
+                - https://www.example.com/product4/image2.jpg
+                - https://www.example.com/product4/image3.jpg
+              code: P-004
+              stock: 19
+              category: Category A
+              status: true
+            quantity: 1
+            _id: "65bfc4acd9560e643bc2b0e6"
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Product ID
+        title:
+          type: string
+          description: Product title
+        description:
+          type: string
+          description: Product description
+        price:
+          type: number
+          description: Product price
+        thumbnail:
+          type: array
+          items:
+            type: string
+          description: Product thumbnail images
+        code:
+          type: string
+          description: Product code
+        stock:
+          type: integer
+          description: Product stock
+        category:
+          type: string
+          description: Product category
+        status:
+          type: boolean
+          description: Product status
+      example:
+        _id: "6547af64ff8692aed2348dfe"
+        title: Product 4
+        description: Short description 4
+        price: 25
+        thumbnail:
+          - https://www.example.com/product4/image1.jpg
+          - https://www.example.com/product4/image2.jpg
+          - https://www.example.com/product4/image3.jpg
+        code: P-004
+        stock: 19
+        category: Category A
+        status: true
+    UpdateProductResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Response status
+        message:
+          type: string
+          description: Response message
+        payload:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: Cart ID
+            products:
+              type: array
+              items:
+                type: object
+                properties:
+                  product:
+                    type: string
+                    description: Product ID
+                  quantity:
+                    type: integer
+                  _id:
+                    type: string
+                    description: Product ID in the cart
+      example:
+        status: Success
+        message: Product updated
+        payload:
+          _id: "657642a312f7de1fcd163b0b"
+          products:
+            - product: "6547e7647b9db25698acc359"
+              quantity: 1
+              _id: "65c15e7179d4322d317dadaa"
+    UpdateProdQuantityResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the operation
+        message:
+          type: string
+          description: Additional message about the operation
+        payload:
+          type: object
+          properties:
+            acknowledged:
+              type: boolean
+              description: Indicates if the operation was acknowledged
+            modifiedCount:
+              type: integer
+              description: Number of documents modified
+            upsertedId:
+              type: null
+              description: Upserted ID, set to null
+            upsertedCount:
+              type: integer
+              description: Number of documents upserted
+            matchedCount:
+              type: integer
+              description: Number of documents matched
+      example:
+        status: Success
+        message: Product's quantity updated
+        payload:
+          acknowledged: true
+          modifiedCount: 1
+          upsertedId: null
+          upsertedCount: 0
+          matchedCount: 1
+    DeleteCartProductsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the operation
+        message:
+          type: string
+          description: Additional message about the operation
+        payload:
+          type: object
+          properties:
+            acknowledged:
+              type: boolean
+              description: Indicates if the operation was acknowledged
+            modifiedCount:
+              type: integer
+              description: Number of documents modified
+            upsertedId:
+              type: null
+              description: Upserted ID, set to null
+            upsertedCount:
+              type: integer
+              description: Number of documents upserted
+            matchedCount:
+              type: integer
+              description: Number of documents matched
+      example:
+        status: Success
+        message: Cart products deleted
+        payload:
+          acknowledged: true
+          modifiedCount: 1
+          upsertedId: null
+          upsertedCount: 0
+          matchedCount: 1
+    RemoveCartProductResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Response status
+        message:
+          type: string
+          description: Response message
+        payload:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: Cart ID
+            products:
+              type: array
+      example:
+        status: Success
+        message: Product removed from cart
+        payload:
+          _id: "657642a312f7de1fcd163b0b"
+          products: []
+    AddCartProductsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the operation
+        message:
+          type: string
+          description: Additional message about the operation
+        payload:
+          type: object
+          properties:
+            acknowledged:
+              type: boolean
+              description: Indicates if the operation was acknowledged
+            modifiedCount:
+              type: integer
+              description: Number of documents modified
+            upsertedId:
+              type: null
+              description: Upserted ID, set to null
+            upsertedCount:
+              type: integer
+              description: Number of documents upserted
+            matchedCount:
+              type: integer
+              description: Number of documents matched
+      example:
+        status: Success
+        message: Product added to cart
+        payload:
+          acknowledged: true
+          modifiedCount: 1
+          upsertedId: null
+          upsertedCount: 0
+          matchedCount: 1
+    PurchaseProductsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the operation
+        message:
+          type: string
+          description: Additional message about the operation
+        payload:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Unique code associated with the purchase
+            purchase_datetime:
+              type: string
+              format: date-time
+              description: Date and time of the purchase
+            amount:
+              type: integer
+              description: Total purchase amount
+            purchaser:
+              type: string
+              description: Email of the purchaser
+            status:
+              type: string
+              description: Status of the purchase
+            _id:
+              type: string
+              description: Unique ID associated with the purchase
+            __v:
+              type: integer
+              description: Version number
+      example:
+        status: Success
+        message: Products purchased successfully
+        payload:
+          code: c0ff2ade-4ceb-405f-a630-72bf9966882e
+          purchase_datetime: "2024-02-05T22:59:41.381Z"
+          amount: 75
+          purchaser: test@email.com
+          status: PENDING
+          _id: 65c1685d94bd8c3b4581da2e
+  requestBodies:
+    AddToCartRequestBody:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    description: Product ID
+            required:
+              - product
+      example:
+        products:
+          - product:
+              _id: "6547e7647b9db25698acc359"
+    UpdateQuantityRequestBody:
+      type: object
+      properties:
+        quantity:
+          type: integer
+      example:
+        quantity: 3

@@ -1,0 +1,17 @@
+<h1>Products</h1>
+<div id="container" style="display: grid; gap:1rem; grid-template-columns:repeat(5, 1fr)">
+    {{#each products}}
+        <div>
+            <p>title: {{this.title}}</p>
+            <p>description: {{this.description}}</p>
+            <p>price: {{this.price}}</p>
+            <p>code: {{this.code}}</p>
+            <p>stock: {{this.stock}}</p>
+            <p>category: {{this.category}}</p>
+            <p>status: {{this.status}}</p>
+            <p>id: {{this.id}}</p>
+        </div>
+    {{/each}}
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>

@@ -1,0 +1,43 @@
+<div>
+    <h1>Welcome, {{user.name}}!</h1>
+    <p>Email: {{user.email}}</p>
+    {{#if user.age}}
+    <p>Age: {{user.age}}</p>
+    {{/if}}
+    <p>Role: {{user.role}}</p>
+    <a href="/api/sessions/logout"><button>Logout</button></a>
+</div>
+<br/>
+<h1>Products</h1>
+<div id="container" style="display: grid; gap:1rem; grid-template-columns:repeat(5, 1fr)">
+    {{#each products}}
+        <div>
+            <p>title: {{this.title}}</p>
+            <p>description: {{this.description}}</p>
+            <p>price: {{this.price}}</p>
+            <p>code: {{this.code}}</p>
+            <p>stock: {{this.stock}}</p>
+            <p>category: {{this.category}}</p>
+            <p>status: {{this.status}}</p>
+            <p>id: {{this.id}}</p>
+            <button class="atc-btn" data-product-id="{{this.id}}">Add to Cart</button>
+        </div>
+    {{/each}}
+</div>
+
+{{#if cartProds.length}}
+    <div style="padding-top: 20px;">
+        <button id="purchase-cart-btn" style="background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;">Purchase Cart</button>
+    </div>
+{{/if}}
+
+<script src="/js/products.js"></script>

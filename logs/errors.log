@@ -1,0 +1,62 @@
+{"level":"error","timestamp":"2024-01-18T02:05:14.715Z"}
+{"level":"error","timestamp":"2024-01-18T02:07:36.548Z"}
+{"level":"error","timestamp":"2024-01-18T02:08:43.010Z"}
+{"level":"error","timestamp":"2024-01-18T02:09:57.235Z"}
+{"level":"error","timestamp":"2024-01-18T02:11:31.217Z"}
+{"level":"error","timestamp":"2024-01-18T02:19:47.570Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:21:56.142Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:22:19.308Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:24:10.217Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:25:40.653Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:25:45.733Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:26:30.636Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:32:30.594Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:34:16.786Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:36:22.186Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:39:01.386Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:39:39.928Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:40:43.507Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:41:03.104Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:41:31.456Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-01-18T02:42:26.417Z"}
+{"code":3,"level":"error","name":"Resource Not Found","timestamp":"2024-02-04T16:41:47.747Z"}
+{"level":"error","timestamp":"2024-03-11T22:36:59.683Z"}
+{"level":"error","timestamp":"2024-03-11T22:37:27.474Z"}
+{"level":"error","timestamp":"2024-03-11T22:39:19.542Z"}
+{"level":"error","timestamp":"2024-03-14T00:35:34.174Z"}
+{"level":"error","timestamp":"2024-03-14T00:36:35.888Z"}
+{"level":"error","timestamp":"2024-03-14T00:37:16.498Z"}
+{"level":"error","timestamp":"2024-03-14T00:37:53.986Z"}
+{"level":"error","timestamp":"2024-03-14T00:38:40.781Z"}
+{"level":"error","path":"users.user","timestamp":"2024-03-14T01:18:25.687Z"}
+{"level":"error","path":"user","timestamp":"2024-03-14T01:19:42.202Z"}
+{"level":"error","timestamp":"2024-03-14T01:21:35.441Z"}
+{"level":"error","timestamp":"2024-03-14T01:22:48.873Z"}
+{"level":"error","message":"productOwner is not defined","timestamp":"2024-03-14T01:23:56.986Z"}
+{"level":"error","message":"products validation failed: owner: Cast to Embedded failed for value \"65872c09d6051cd59c773648\" (type string) at path \"owner\" because of \"ObjectExpectedError\"","timestamp":"2024-03-14T01:28:14.178Z"}
+{"level":"error","message":"undefined - undefined","timestamp":"2024-03-16T21:23:35.188Z"}
+{"level":"error","timestamp":"2024-03-16T21:26:45.491Z"}
+{"level":"error","timestamp":"2024-03-16T21:29:28.314Z"}
+{"level":"error","timestamp":"2024-03-16T21:29:53.852Z"}
+{"level":"error","timestamp":"2024-03-16T21:30:17.355Z"}
+{"level":"error","timestamp":"2024-03-16T21:31:38.680Z"}
+{"level":"error","timestamp":"2024-03-16T21:32:13.087Z"}
+{"level":"error","timestamp":"2024-03-16T21:32:41.651Z"}
+{"level":"error","timestamp":"2024-03-16T21:33:05.362Z"}
+{"level":"error","timestamp":"2024-03-16T21:33:21.939Z"}
+{"level":"error","timestamp":"2024-03-16T21:37:10.708Z"}
+{"level":"error","timestamp":"2024-03-16T21:37:33.961Z"}
+{"level":"error","timestamp":"2024-03-16T21:40:39.771Z"}
+{"level":"error","timestamp":"2024-03-16T21:43:15.191Z"}
+{"level":"error","timestamp":"2024-03-16T21:43:46.597Z"}
+{"level":"error","timestamp":"2024-03-16T21:44:52.593Z"}
+{"level":"error","timestamp":"2024-03-16T21:45:23.810Z"}
+{"level":"error","timestamp":"2024-03-16T21:46:31.144Z"}
+{"level":"error","timestamp":"2024-03-16T21:47:04.051Z"}
+{"level":"error","timestamp":"2024-03-16T21:47:39.103Z"}
+{"level":"error","timestamp":"2024-03-16T21:48:12.199Z"}
+{"level":"error","message":"undefined - undefined","timestamp":"2024-03-16T23:33:15.162Z"}
+{"level":"error","message":"Error - The partial checkoutForm could not be found","timestamp":"2024-03-18T00:23:38.416Z"}
+{"level":"error","message":"Invalid val: {\n\t\"{\\n  _id: new ObjectId('6547af64ff8692aed2348dfe'),\\n  title: 'Product 4',\\n  description: 'Shor...n  ],\\n  code: 'P-002',\\n  stock: 35,\\n  category: 'Category B',\\n  status: true,\\n  __v: 0\\n}\": 1\n} must be a string under 500 characters","timestamp":"2024-03-18T00:49:49.447Z"}
+{"level":"error","message":"Invalid val: {\n\t\"{\\n  _id: new ObjectId('6547af64ff8692aed2348dfe'),\\n  title: 'Product 4',\\n  description: 'Shor...n  ],\\n  code: 'P-002',\\n  stock: 35,\\n  category: 'Category B',\\n  status: true,\\n  __v: 0\\n}\": 1\n} must be a string under 500 characters","timestamp":"2024-03-18T00:52:25.984Z"}
+{"level":"error","message":"Invalid val: {\n\t\"{\\n  _id: new ObjectId('6547af64ff8692aed2348dfe'),\\n  title: 'Product 4',\\n  description: 'Shor...n  ],\\n  code: 'P-002',\\n  stock: 35,\\n  category: 'Category B',\\n  status: true,\\n  __v: 0\\n}\": 1\n} must be a string under 500 characters","timestamp":"2024-03-18T00:52:52.636Z"}
